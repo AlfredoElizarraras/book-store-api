@@ -59,3 +59,6 @@ gem 'rack-cors'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
+
+# A Ruby static code analyzer and formatter, based on the community Ruby style guide.
+gem 'rubocop', '~>0.81'
