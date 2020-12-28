@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
           head :unauthorized
         end
       end
+    end
   end
 
   def authenticate_user!(options = {})
