@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { sessions: :sessions },
                        path_names: { sign_in: :login }
               
-    resources :user, only: [:update, :show]
+    resource :user, only: [:update, :show]
   end
 end
