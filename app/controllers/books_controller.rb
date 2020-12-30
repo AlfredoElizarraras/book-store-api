@@ -12,8 +12,7 @@ class BooksController < ApplicationController
     @book.user = current_user
 
     if @book.save
-      # render json: { messages: { 'book' => ['created successfuly'] } }, status: :ok
-      render :show
+      render :show, status: :ok
     else
       render json: { errors: @book.errors }, status: :unprocessable_entity
     end
@@ -24,11 +23,11 @@ class BooksController < ApplicationController
   end
 
   def update
-    @book = book.find(params[:id])
+    @book = Book.find(params[:id])
 
     if book_owned_by_user(@book)
-      if @book.update_attributes(params[:book])
-        render json: { messages: { 'book' => ['updated successfuly'] } }, status: :ok
+      if @book.update_attributes(book_params)
+        render :show, status: :ok
       else
         render json: { errors: @book.errors }, status: :unprocessable_entity
       end
@@ -60,7 +59,7 @@ class BooksController < ApplicationController
   end
 
   def book_owned_by_user(book)
-    book.id == current_user.id
+    book.user.id == current_user.id
   end
 
   def book_not_owned_by_user_error
