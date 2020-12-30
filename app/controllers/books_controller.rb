@@ -1,8 +1,10 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
 
   def index
     @books = current_user.books
+  rescue => error
+    render json: { errors: { 'user' => [error] } }
   end
 
   def create
