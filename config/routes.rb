@@ -4,5 +4,7 @@ Rails.application.routes.draw do
                        path_names: { sign_in: :login }
               
     resource :user, only: [:update, :show]
+
+    resources :books, only: [:index, :update, :create, :destroy]
   end
 end
