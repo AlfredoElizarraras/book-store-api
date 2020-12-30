@@ -12,10 +12,15 @@ class BooksController < ApplicationController
     @book.user = current_user
 
     if @book.save
-      render json: { messages: { 'book' => ['created successfuly'] } }, status: :ok
+      # render json: { messages: { 'book' => ['created successfuly'] } }, status: :ok
+      render :show
     else
       render json: { errors: @book.errors }, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @book = Book.find(params[:id])
   end
 
   def update
