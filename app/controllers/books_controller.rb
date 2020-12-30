@@ -10,7 +10,7 @@ class BooksController < ApplicationController
     @book.user = current_user
 
     if @book.save
-      render json: { @book, messages: { 'Book created successfuly' } }, status: :ok
+      render json: { messages: { 'book' => ['created successfuly'] } }, status: :ok
     else
       render json: { errors: @book.errors }, status: :unprocessable_entity
     end
@@ -21,7 +21,7 @@ class BooksController < ApplicationController
 
     if book_owned_by_user(@book)
       if @book.update_attributes(params[:book])
-        render json: { @book, messages: { 'Book updated successfuly' } }, status: :ok
+        render json: { messages: { 'book' => ['updated successfuly'] } }, status: :ok
       else
         render json: { errors: @book.errors }, status: :unprocessable_entity
       end
@@ -32,10 +32,10 @@ class BooksController < ApplicationController
 
   def destroy
     @book = Book.find(params[:id])
-    
+
     if book_owned_by_user(@book)
       if @book.destroy
-        render json: { messages: { 'Book deleted successfuly' } }, status: :ok
+        render json: { messages: { 'book' => ['deleted successfuly'] } }, status: :ok
       else
         render json: { errors: @book.errors }, status: :unprocessable_entity
       end
@@ -57,6 +57,6 @@ class BooksController < ApplicationController
   end
 
   def book_not_owned_by_user_error
-    render json: { errors: "book not owned by #{current_user.username}" }, status: :forbidden
+    render json: { errors: { 'book' => ["not owned by #{current_user.username}"] } }, status: :forbidden
   end
 end
