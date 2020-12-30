@@ -3,24 +3,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
 
-  before_action :underscore_params!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user
 
   private
-
-  def underscore_params!
-    deep_transform_keys(params, &:underscore)
-  end
-
-  # https://apidock.com/rails/v4.0.2/Hash/deep_transform_keys
-  def deep_transform_keys(value, &block)
-    result = {}
-    value.each do |key, value|
-      result[yield(key)] = value.is_a?(Hash) ? deep_transform_keys(value, &block) : value
-    end
-    result
-  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
